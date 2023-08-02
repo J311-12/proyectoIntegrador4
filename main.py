@@ -1,7 +1,7 @@
 #Proyecto integrador parte 4
 
-
 import os
+import readchar
 
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -18,22 +18,22 @@ def main_loop(mapa, pos_inicial, pos_final):
         mapa[py][px] = 'P'
         print_map(mapa)
 
-        tecla = input("Ingrese una tecla de flecha (↑, ↓, ←, →): ")
+        tecla = readchar.readkey()
         mapa[py][px] = '.'
 
-        if tecla == '↑':
+        if tecla == '\x1b[A':  # Flecha arriba
             nueva_py = py - 1
             if nueva_py >= 0 and mapa[nueva_py][px] != '#':
                 py = nueva_py
-        elif tecla == '↓':
+        elif tecla == '\x1b[B':  # Flecha abajo
             nueva_py = py + 1
             if nueva_py < len(mapa) and mapa[nueva_py][px] != '#':
                 py = nueva_py
-        elif tecla == '←':
+        elif tecla == '\x1b[D':  # Flecha izquierda
             nueva_px = px - 1
             if nueva_px >= 0 and mapa[py][nueva_px] != '#':
                 px = nueva_px
-        elif tecla == '→':
+        elif tecla == '\x1b[C':  # Flecha derecha
             nueva_px = px + 1
             if nueva_px < len(mapa[0]) and mapa[py][nueva_px] != '#':
                 px = nueva_px
@@ -49,3 +49,4 @@ posicion_inicial = (0, 0)
 posicion_final = (len(mapa[0])-1, len(mapa)-1)
 
 main_loop(mapa, posicion_inicial, posicion_final)
+
